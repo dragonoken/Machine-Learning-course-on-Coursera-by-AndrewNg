@@ -88,7 +88,7 @@ pause;
 
 %% ============= Part 3: Optimizing using fminunc  =============
 %  In this exercise, you will use a built-in function (fminunc) to find the
-%  optimal parameters theta.
+%  optimal parameters theta. 
 
 %  Set options for fminunc
 options = optimset('GradObj', 'on', 'MaxIter', 400);
