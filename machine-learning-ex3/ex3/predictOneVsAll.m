@@ -30,11 +30,9 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
+probability_matrix = sigmoid(all_theta * X'); % Each column has probabilities for one example, each row has probabilities for a specific label
 
-
-
-
-
+[p, example] = find(probability_matrix == max(probability_matrix)); % p is a vector containing labels with the highest probability for each example. example contains just example numbers : [1; 2; 3; 4; 5; ...; m]
 
 % =========================================================================
 
