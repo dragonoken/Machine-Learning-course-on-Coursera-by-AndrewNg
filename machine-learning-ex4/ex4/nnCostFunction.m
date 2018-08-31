@@ -81,10 +81,11 @@ hiddenLayer = [ones(1, m); sigmoid(Theta1 * inputLayer)];
 outputLayer = sigmoid(Theta2 * hiddenLayer);
 
 
-% Cost(J) Calculation (Without Regularization)
+% Cost(J) Calculation (With Regularization)
 % To sum all individual cost for every example and every label, unroll the matrices and do the multiplications
 % An alternative is using element-wise multiplications and then sum the values using sum function (probably twice)
-J = (-oneHot_y(:)' * log(outputLayer)(:) - (1 - oneHot_y)(:)' * log(1 - outputLayer)(:)) / m;
+J = (-oneHot_y(:)' * log(outputLayer)(:) - (1 - oneHot_y)(:)' * log(1 - outputLayer)(:)) / m ...
+      + (Theta1(:,2:end)(:)' * Theta1(:, 2:end)(:) + Theta2(:,2:end)(:)' * Theta2(:, 2:end)(:)) * (lambda / (2 * m));
 
 
 
