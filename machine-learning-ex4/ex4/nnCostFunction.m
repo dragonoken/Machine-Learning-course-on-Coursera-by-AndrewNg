@@ -88,13 +88,42 @@ J = (-oneHot_y(:)' * log(outputLayer)(:) - (1 - oneHot_y)(:)' * log(1 - outputLa
       + (Theta1(:,2:end)(:)' * Theta1(:, 2:end)(:) + Theta2(:,2:end)(:)' * Theta2(:, 2:end)(:)) * (lambda / (2 * m));
 
 
+% Gradient Calculation (Backpropagation)
+% Initialize Deltas (Accumulative Gradient Values)
+Delta_1 = zeros(size(Theta1));
+Delta_2 = zeros(size(Theta2));
+% For each example
+for example = 1:m
 
+  % Feedforward
+  a_1 = [1, X(example,:)]';
 
+  z_2 = Theta1 * a_1;
+  
+  a_2 = [1; sigmoid(z_2)];
 
+  z_3 = Theta2 * a_2;
 
+  a_3 = sigmoid(z_3);
 
+  % Backpropagate
+  delta_3 = a_3 - oneHot_y(:,example);
 
+  delta_2 = (Theta2(:,2:end)' * delta_3) .* sigmoidGradient(z_2);
 
+  Delta_2 = Delta_2 + (delta_3 * a_2');
+
+  Delta_1 = Delta_1 + (delta_2 * a_1');
+
+endfor
+% Devide the accumulated gradients by the number of examples
+D_2 = Delta_2 / m;
+
+D_1 = Delta_1 / m;
+
+Theta1_grad = D_1;
+
+Theta2_grad = D_2;
 
 % -------------------------------------------------------------
 
