@@ -63,13 +63,28 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
+% Transform y into a matrix of one-hot vectors
+% Examples are in columns, rows corresponds to each diffrent label values
+oneHot_y = zeros(num_labels, size(y, 1));
+for example = 1:size(y, 1)
+
+  oneHot_y(y(example), example) = 1;
+
+endfor
 
 
+% Forward Propagation (Feedforward)
+inputLayer = [ones(m, 1) X]'; % Each column is an example with every first value being the bias unit
+
+hiddenLayer = [ones(1, m); sigmoid(Theta1 * inputLayer)];
+
+outputLayer = sigmoid(Theta2 * hiddenLayer);
 
 
-
-
-
+% Cost(J) Calculation (Without Regularization)
+% To sum all individual cost for every example and every label, unroll the matrices and do the multiplications
+% An alternative is using element-wise multiplications and then sum the values using sum function (probably twice)
+J = (-oneHot_y(:)' * log(outputLayer)(:) - (1 - oneHot_y)(:)' * log(1 - outputLayer)(:)) / m;
 
 
 
