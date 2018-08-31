@@ -84,11 +84,11 @@ outputLayer = sigmoid(Theta2 * hiddenLayer);
 % Cost(J) Calculation (With Regularization)
 % To sum all individual cost for every example and every label, unroll the matrices and do the multiplications
 % An alternative is using element-wise multiplications and then sum the values using sum function (probably twice)
-J = (-oneHot_y(:)' * log(outputLayer)(:) - (1 - oneHot_y)(:)' * log(1 - outputLayer)(:)) / m ...
-      + (Theta1(:,2:end)(:)' * Theta1(:, 2:end)(:) + Theta2(:,2:end)(:)' * Theta2(:, 2:end)(:)) * (lambda / (2 * m));
+J = (-oneHot_y(:)' * log(outputLayer)(:) - (1 - oneHot_y)(:)' * log(1 - outputLayer)(:)) ./ m ...
+      + (Theta1(:,2:end)(:)' * Theta1(:, 2:end)(:) + Theta2(:,2:end)(:)' * Theta2(:, 2:end)(:)) .* (lambda / (2 * m));
 
 
-% Gradient Calculation (Backpropagation)
+% Gradient Calculation (Backpropagation With Regularization)
 % Feedforward
 a_1 = [ones(m, 1), X]';
 
@@ -105,9 +105,9 @@ delta_3 = a_3 - oneHot_y;
 
 delta_2 = (Theta2(:,2:end)' * delta_3) .* sigmoidGradient(z_2);
 
-D_2 = (delta_3 * a_2') / m;
+D_2 = (delta_3 * a_2') ./ m + [zeros(size(Theta2, 1), 1), Theta2(:,2:end)] .* (lambda / m);
 
-D_1 = (delta_2 * a_1') / m;
+D_1 = (delta_2 * a_1') ./ m + [zeros(size(Theta1, 1), 1), Theta1(:,2:end)] .* (lambda / m);
 
 Theta1_grad = D_1;
 
