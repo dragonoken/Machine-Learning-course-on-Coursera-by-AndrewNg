@@ -218,3 +218,14 @@ end
 
 fprintf('Program paused. Press enter to continue.\n');
 pause;
+
+%% =========== Optional Parts ===========
+% Calculate the test error with the best lambda value found from above.
+best_lambda = lambda_vec(find(error_val == min(error_val)));
+[best_theta] = trainLinearReg(X_poly, y, best_lambda);
+error_best_test = linearRegCostFunction(X_poly_test, ytest, best_theta, 0);
+
+fprintf("\nTest error with lambda = %0.2f : %f\n\n", best_lambda, error_best_test);
+
+fprintf('Program paused. Press enter to continue.\n');
+pause;
