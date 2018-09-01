@@ -51,15 +51,19 @@ error_val   = zeros(m, 1);
 %       end
 %
 
-% ---------------------- Sample Solution ----------------------
+for subset_size = 1:m
 
+  Xsub = X(1:subset_size, :);
 
+  ysub = y(1:subset_size);
 
+  [theta] = trainLinearReg(Xsub, ysub, lambda);
 
+  error_train(subset_size) = linearRegCostFunction(Xsub, ysub, theta, 0);
 
+  error_val(subset_size) = linearRegCostFunction(Xval, yval, theta, 0);
 
-
-% -------------------------------------------------------------
+endfor
 
 % =========================================================================
 
