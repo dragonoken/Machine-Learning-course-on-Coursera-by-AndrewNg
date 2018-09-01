@@ -229,3 +229,24 @@ fprintf("\nTest error with lambda = %0.2f : %f\n\n", best_lambda, error_best_tes
 
 fprintf('Program paused. Press enter to continue.\n');
 pause;
+
+% Get the learning curve using randomized selection
+lambda = 0.01;
+[rand_error_train, rand_error_val] = ...
+    randLearningCurve(X_poly, y, X_poly_val, yval, lambda);
+plot(1:m, rand_error_train, 1:m, rand_error_val);
+
+title(sprintf('Polynomial Regression Learning Curve (lambda = %f)', lambda));
+xlabel('Number of training examples')
+ylabel('Error')
+axis([0 13 0 100])
+legend('Train', 'Cross Validation')
+
+fprintf('Polynomial Regression (lambda = %f)\n\n', lambda);
+fprintf('# Training Examples\tTrain Error\tCross Validation Error\n');
+for i = 1:m
+    fprintf('  \t%d\t\t%f\t%f\n', i, rand_error_train(i), rand_error_val(i));
+end
+
+fprintf('Program paused. Press enter to continue.\n');
+pause;
