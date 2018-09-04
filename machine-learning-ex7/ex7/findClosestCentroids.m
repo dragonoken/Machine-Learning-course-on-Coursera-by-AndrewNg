@@ -21,13 +21,15 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
-for x = 1:size(X,1)
+% Using an algebra fact : (a - b)^2 = a^2 - 2ab + b^2
+% minimize : - 2ab + b^2 (in this case, a^2 does not matter)
 
-  distances_squared = sum((X(x,:) - centroids) .^ 2, 2);
-
-  idx(x) = find(distances_squared == min(distances_squared));
-
+centroids_squared = zeros(size(centroids, 1), 1);
+for cent_i = 1:size(centroids, 1)
+  centroids_squared(cent_i) = centroids(cent_i, :) * centroids(cent_i, :)';
 endfor
+
+[~, idx] = min(centroids_squared' - (2 * X * centroids'), [], 2);
 
 % =============================================================
 
