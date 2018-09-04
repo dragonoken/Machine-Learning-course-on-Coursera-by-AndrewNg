@@ -23,10 +23,10 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
-Cs = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
+Cs = [0.1, 0.3, 1, 3, 10, 30];
 n_Cs = numel(Cs);
 
-sigmas = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
+sigmas = [0.01, 0.03, 0.1, 0.3, 1, 3];
 n_sigmas = numel(sigmas);
 
 val_errors = zeros(n_Cs * n_sigmas, 1);
