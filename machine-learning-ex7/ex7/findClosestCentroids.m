@@ -21,11 +21,13 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
+for x = 1:size(X,1)
 
+  distances_squared = sum((X(x,:) - centroids) .^ 2, 2);
 
+  idx(x) = find(distances_squared == min(distances_squared));
 
-
-
+endfor
 
 % =============================================================
 
