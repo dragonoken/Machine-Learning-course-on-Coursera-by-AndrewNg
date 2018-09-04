@@ -26,12 +26,9 @@ centroids = zeros(K, n);
 % Note: You can use a for-loop over the centroids to compute this.
 %
 
+idx_matrix = [idx == 1:K];
 
-
-
-
-
-
+centroids = (idx_matrix' * X) ./ sum(idx_matrix', 2);
 
 % =============================================================
 
